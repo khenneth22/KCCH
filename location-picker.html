@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Picker</title>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=YouApiKeyHere"></script>
+<script src="/dist/location-picker.min.js"></script>
+</head>
+
+<body>
+    
+    <h1 class="top">HTML5 geoLocation API demo</h1>
+
+        
+        <div id="map"></div>
+        <button id="confirmPosition">Confirm Position</button>
+<p>On click position: <span id="onClickPositionView"></span></p>
+
+<p>On idle position: <span id="onIdlePositionView"></span></p>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3869.4298423204177!2d121.14225191431521!3d14.110800592675766!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd657302869c29%3A0xbde793ff2787adbc!2sJollibee%20Sto.%20Tomas!5e0!3m2!1sen!2sph!4v1669344459030!5m2!1sen!2sph" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+<script>
+    var map = document.getElementById('map');
+var instance = new locationPicker(map, {
+    // picker options
+  }, {
+    // Google Maps Options
+    
+});
+
+var confirmBtn = document.getElementById('confirmPosition');
+var onClickPositionView = document.getElementById('onClickPositionView');
+confirmBtn.onclick = function () {
+  var location = lp.getMarkerPosition();
+  onClickPositionView.innerHTML = 'The chosen location is ' + location.lat + ',' + location.lng;
+};
+
+google.maps.event.addListener(lp.map, 'idle', function (event) {
+  var location = lp.getMarkerPosition();
+  onIdlePositionView.innerHTML = 'The chosen location is ' + location.lat + ',' + location.lng;
+});
+
+var instance = new locationPicker(map, {
+    // latitude
+    lat: 45.5017,
+    // longitude
+    lng: -73.5673,
+    // auto try and detect and set the marker to the the current user's location
+    setCurrentPosition: true 
+    
+  }, {
+    // Google Maps Options
+});
+</script>
+    
+</body>
+</html>

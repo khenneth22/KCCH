@@ -1,0 +1,65 @@
+<script>
+    // JavaScript to get the user's location and check if they are within the city
+    function checkLocation() {
+    // Get the user's location
+    navigator.geolocation.watchPosition(function(position) {
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+
+    // Reverse geocode the location to get the city
+    fetch("https://api.opencagedata.com/geocode/v1/json?q=" + lat + "+" + lng + "&key=6f282659c2984f8997d9d74f838412fc")
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        // Get the city from the response
+        var city = data.results[0].components.postcode;
+
+        // Check if the city is the specified city
+        if (city == "4234") {
+          // The user is within the city
+          document.getElementById("location").innerHTML = "We deliver within Sto. Tomas. Order Now!";
+          document.getElementById("place-order-button").disabled = false;
+        } else {
+          // The user is outside of the city
+          document.getElementById("location").innerHTML = "Sorry, we only deliver within Sto.Tomas.";
+          document.getElementById("place-order-button").disabled = true;
+        //   document.getElementById("cod").disabled = true;
+        }
+
+        if(document.getElementById("pick_up").addEventListener("click", function() {   
+            document.getElementById("place-order-button").disabled = false;
+            }));
+
+        if(document.getElementById("cod").addEventListener("click", function() {  
+            if(city == "4234") {
+                document.getElementById("place-order-button").disabled = false;
+            }else{
+                document.getElementById("place-order-button").disabled = true;
+            }
+            }));
+    })
+    // .catch(function(error) {
+    //   // There was an error with the API request
+    //   document.getElementById("location").innerHTML = "Sorry, There was an error with the request. We can't detect your location.";
+    //   document.getElementById("place-order-button").disabled = true;
+    // });
+    },function(error) {
+    // There was an error getting the user's location
+    document.getElementById("location").innerHTML = "Geolocation has been declined. You cannot checkout right now.";
+    document.getElementById("place-order-button").disabled = true;
+    });
+}
+
+
+    // Call the checkLocation function when the page loads
+    window.addEventListener("load", checkLocation);
+
+
+    function showDT(){
+        document.getElementById("dateTime").style.display = "block";
+    }
+    function hideDT(){
+        document.getElementById("dateTime").style.display = "none";
+    }
+</script>

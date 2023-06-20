@@ -1,0 +1,23 @@
+.carousel-img {
+  height: 100vh;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
+}
+
+.parent-nav {
+  padding: 0 0.5rem;
+}
+.parent-nav-less-padding {
+  padding: 0 1.5rem;
+}
+
+.review-select {
+  height: 50px;
+}
+
+.carousel-item {
+  display: block;
+}/*# sourceMappingURL=style.css.map */
+
